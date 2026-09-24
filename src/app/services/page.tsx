@@ -55,7 +55,7 @@ export default function ServicesPage() {
         <nav aria-label="Services page navigation">
           <Link href="/#work">Our Work</Link>
           <Link href="/services" aria-current="page">Services</Link>
-          <Link href="/#process">Process</Link>
+          <Link href="/process">Process</Link>
         </nav>
         <Link className="button button-small" href="/start-project">
           Start a project <span aria-hidden="true">↗</span>
@@ -63,11 +63,11 @@ export default function ServicesPage() {
       </header>
 
       <section className="services-hero shell" aria-labelledby="services-title">
-        <p className="services-eyebrow"><span aria-hidden="true" /> BLYU / SERVICES</p>
+        <p className="services-eyebrow"><span aria-hidden="true" /> SERVICES</p>
         <h1 id="services-title">Everything it takes to <em>move forward.</em></h1>
         <div className="services-hero-bottom">
           <p>
-            Strategy, design, engineering, and automation — four connected
+            Strategy, design, engineering, and automation four connected
             disciplines to make ideas real and keep them moving.
           </p>
           <span>Explore our services ↓</span>
@@ -104,7 +104,6 @@ export default function ServicesPage() {
       </section>
 
       <section className="services-end shell">
-        <p>BLYU / LET’S BUILD</p>
         <h2>Have something in mind?</h2>
         <Link className="button" href="/start-project">
           Start a project <span aria-hidden="true">↗</span>

@@ -18,7 +18,7 @@ export default function Home() {
           <div className="nav-links">
             <a href="#work">Our Work</a>
             <a href="/services">Services</a>
-            <a href="#process">Process</a>
+            <a href="/process">Process</a>
             <a href="#process">Ocean</a>
           </div>
           <div className="nav-actions" aria-label="Quick links">
@@ -39,7 +39,7 @@ export default function Home() {
               From intelligent automation to pixel-perfect interfaces, Blyu
               builds the digital products ambitious businesses need next.
             </p>
-            <a className="button" href="#contact">
+            <a className="button" href="/start-project">
               Start a project <span>↗</span>
             </a>
           </div>
@@ -125,7 +125,7 @@ export default function Home() {
         <footer data-fade>
           <div className="shell footer-cta">
             <p>Making complex things beautiful.</p>
-            <a className="button" href="#contact">
+            <a className="button" href="/start-project">
               Start a project <span>↗</span>
             </a>
           </div>
@@ -144,12 +144,12 @@ export default function Home() {
             </div>
             <div>
               <span>Explore</span>
-              <a href="#process">Process</a>
+              <a href="/process">Process</a>
               <a href="#process">Ocean</a>
             </div>
             <div>
               <span>Connect</span>
-              <a href="#contact">Start a project</a>
+              <a href="/start-project">Start a project</a>
             </div>
             <div>
               <span>Connect</span>
