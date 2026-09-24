@@ -1,6 +1,6 @@
 import { ContactForm } from "@/components/contact-form";
 import { PageMotion } from "@/components/page-motion";
-import { WorkRail } from "@/components/work-rail";
+import { ProjectGallery } from "@/components/project-gallery";
 
 const services = [
   ["Strategy", "Clarity before execution"],
@@ -16,38 +16,21 @@ export default function Home() {
         <nav className="nav shell" aria-label="Main navigation" data-fade>
           <a className="brand brand-logo" href="#top" aria-label="Blyu home" />
           <div className="nav-links">
-            <a href="#work">Work</a>
-            <a href="#services">Services</a>
+            <a href="#work">Our Work</a>
+            <a href="/services">Services</a>
             <a href="#process">Process</a>
+            <a href="#process">Ocean</a>
           </div>
           <div className="nav-actions" aria-label="Quick links">
-            <a className="nav-ocean" href="#process">
+            <a className="nav-ocean nav-ocean-compact" href="#process">
               Ocean
             </a>
-            <a className="button button-small" href="#contact">
+            <a className="button button-small" href="/start-project">
               Start a project <span>↗</span>
             </a>
           </div>
         </nav>
         <section className="hero shell" id="top">
-          <svg
-            className="doodle doodle-hero-left"
-            viewBox="0 0 220 180"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M12 58c24-46 58-38 44-8-15 33 35 13 18 46-13 25-43 8-26-7 20-18 52 5 45 31-6 22-29 23-34 7" />
-            <path d="M20 139c21-12 45-11 64 2" />
-          </svg>
-          <svg
-            className="doodle doodle-hero-right"
-            viewBox="0 0 220 180"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M15 98c21-47 38-47 42-5s19 53 30 7 26-49 31-4 18 49 32 5 27-40 44-9" />
-            <path d="M30 142c29 10 56 8 82-4" />
-          </svg>
           <h1 data-fade>
             We build what others <em>can’t</em> imagine.
           </h1>
@@ -109,42 +92,10 @@ export default function Home() {
             <span className="video-lines" />
           </div>
         </section>
-        <section className="work-section" id="work" data-fade>
-          <svg
-            className="doodle doodle-work"
-            viewBox="0 0 240 220"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M21 106c30-59 45 72 77 8s48 53 76-8 36 1 48 21" />
-            <path d="M44 36c35 9 58 31 69 67-31-6-55-28-69-67Z" />
-          </svg>
-          <div className="shell work-header">
-            <div>
-              <div className="eyebrow">
-                <span />
-                Selected work
-              </div>
-              <h2>
-                Build with people who <em>refuse average.</em>
-              </h2>
-            </div>
-            <p>
-              Drag to explore <b>→</b>
-            </p>
-          </div>
-          <WorkRail />
-        </section>
+        <div id="work">
+          <ProjectGallery />
+        </div>
         <section className="manifesto shell" data-fade>
-          <svg
-            className="doodle doodle-manifesto"
-            viewBox="0 0 240 220"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M19 111c0-51 40-91 91-91s91 40 91 91-40 91-91 91c-29 0-54-13-71-33" />
-            <path d="M41 106c23-33 41 38 65 0s40 37 65-1" />
-          </svg>
           <p className="eyebrow">
             <span />
             What makes us Blyu
@@ -189,7 +140,7 @@ export default function Home() {
             <div>
               <span>Explore</span>
               <a href="#work">Work</a>
-              <a href="#services">Services</a>
+              <a href="/services">Services</a>
             </div>
             <div>
               <span>Explore</span>

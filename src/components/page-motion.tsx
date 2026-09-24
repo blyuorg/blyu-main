@@ -21,17 +21,79 @@ export function PageMotion({ children }: { children: ReactNode }) {
     const context = gsap.context(() => {
       const nav = root.querySelector<HTMLElement>(".nav");
       if (nav) {
-        const setCompact = (compact: boolean) => {
-          if (nav.classList.contains("nav-compact") === compact) return;
+        const navActions = nav.querySelector<HTMLElement>(".nav-actions");
+        const oceanSource = nav.querySelector<HTMLElement>(
+          ".nav-links a:last-child",
+        );
+        const oceanDestination = nav.querySelector<HTMLElement>(
+          ".nav-ocean-compact",
+        );
+        let navTransition: gsap.core.Timeline | undefined;
+        let flipTransition: gsap.core.Timeline | undefined;
+        let oceanTraveler: HTMLElement | undefined;
+        let expandPreparation: gsap.core.Tween | undefined;
+        const isMobileNav = () => window.matchMedia("(max-width: 700px)").matches;
+        const compactHeight = () => (isMobileNav() ? 104 : 86);
+        const expandedHeight = () => (isMobileNav() ? 148 : 164);
+
+        const setCompact = (compact: boolean, prepared = false) => {
+          if (nav.classList.contains("nav-compact") === compact) {
+            if (compact && expandPreparation) {
+              expandPreparation.kill();
+              expandPreparation = undefined;
+              gsap.to(nav, {
+                height: compactHeight(),
+                duration: 0.25,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            }
+            return;
+          }
+          expandPreparation?.kill();
+          expandPreparation = undefined;
+          navTransition?.kill();
+          flipTransition?.kill();
+          oceanTraveler?.remove();
+          oceanTraveler = undefined;
+          gsap.killTweensOf([nav, navActions, oceanSource, oceanDestination]);
+          gsap.set([oceanSource, oceanDestination].filter(Boolean), {
+            clearProps: "opacity,visibility,transform,flexBasis",
+          });
+          if (navActions) gsap.set(navActions, { clearProps: "width,height" });
+
           if (reducedMotion) {
             nav.classList.toggle("nav-compact", compact);
             return;
           }
 
+          // On the way back, make room for the stacked links and large logo
+          // before switching from the compact flex layout to the tall grid.
+          if (!compact && !prepared) {
+            expandPreparation = gsap.to(nav, {
+              height: expandedHeight(),
+              duration: 0.3,
+              ease: "power2.inOut",
+              overwrite: "auto",
+              onComplete: () => {
+                expandPreparation = undefined;
+                setCompact(false, true);
+              },
+            });
+            return;
+          }
+
+          const departingOcean = compact ? oceanSource : oceanDestination;
+          const arrivingOcean = compact ? oceanDestination : oceanSource;
+          const oceanFrom = departingOcean?.getBoundingClientRect();
+          const oceanStyle = departingOcean
+            ? getComputedStyle(departingOcean)
+            : undefined;
+          const actionsFrom = navActions?.getBoundingClientRect();
           const state = Flip.getState(
             Array.from(
               nav.querySelectorAll(
-                ".brand-logo, .nav-links, .nav-ocean, .button-small",
+                ".brand-logo, .nav-links a:not(:last-child), .button-small",
               ),
             ),
           );
@@ -44,33 +106,97 @@ export function PageMotion({ children }: { children: ReactNode }) {
           };
           nav.classList.toggle("nav-compact", compact);
           const target = getComputedStyle(nav);
-          gsap.fromTo(nav, from, {
-            height: compact
-              ? window.matchMedia("(max-width: 700px)").matches
-                ? 68
-                : 86
-              : window.matchMedia("(max-width: 700px)").matches
-                ? 118
-                : 138,
+          const actionsTo = navActions?.getBoundingClientRect();
+          const oceanTo = arrivingOcean?.getBoundingClientRect();
+          const navRect = nav.getBoundingClientRect();
+          const travelDuration = 0.72;
+
+          navTransition = gsap.timeline({
+            onComplete: () => {
+              oceanTraveler?.remove();
+              oceanTraveler = undefined;
+              if (arrivingOcean) {
+                gsap.set(arrivingOcean, {
+                  clearProps: "opacity,visibility,transform,flexBasis",
+                });
+              }
+              if (navActions) {
+                gsap.set(navActions, { clearProps: "width,height" });
+              }
+            },
+          });
+          navTransition.fromTo(nav, from, {
+            height: compact ? compactHeight() : expandedHeight(),
             backgroundColor: target.backgroundColor,
             borderColor: target.borderColor,
             boxShadow: target.boxShadow,
-            duration: 0.68,
+            duration: travelDuration,
             ease: "power3.inOut",
             overwrite: "auto",
-          });
-          Flip.from(state, {
-            duration: 0.68,
+          }, 0);
+
+          if (navActions && actionsFrom && actionsTo) {
+            navTransition.fromTo(navActions, {
+              width: actionsFrom.width,
+              height: actionsFrom.height,
+            }, {
+              width: actionsTo.width,
+              height: actionsTo.height,
+              duration: travelDuration,
+              ease: "power3.inOut",
+            }, 0);
+          }
+          if (oceanDestination && compact) {
+            navTransition.fromTo(oceanDestination, {
+              flexBasis: "0%",
+            }, {
+              flexBasis: "34%",
+              duration: travelDuration,
+              ease: "power3.inOut",
+            }, 0);
+          }
+
+          flipTransition = Flip.from(state, {
+            duration: travelDuration,
             ease: "power3.inOut",
-            nested: true,
+            stagger: 0.025,
             absolute: false,
             prune: true,
           });
+
+          if (departingOcean && arrivingOcean && oceanFrom && oceanTo && oceanStyle) {
+            gsap.set(arrivingOcean, { autoAlpha: 0 });
+            oceanTraveler = document.createElement("span");
+            oceanTraveler.className = "nav-ocean-traveler";
+            oceanTraveler.textContent = "Ocean";
+            nav.appendChild(oceanTraveler);
+            gsap.set(oceanTraveler, {
+              left: oceanFrom.left - navRect.left,
+              top: oceanFrom.top - navRect.top,
+              width: oceanFrom.width,
+              height: oceanFrom.height,
+              color: oceanStyle.color,
+              fontFamily: oceanStyle.fontFamily,
+              fontSize: oceanStyle.fontSize,
+              fontWeight: oceanStyle.fontWeight,
+              lineHeight: oceanStyle.lineHeight,
+            });
+            navTransition.to(oceanTraveler, {
+              left: oceanTo.left - navRect.left,
+              top: oceanTo.top - navRect.top,
+              width: oceanTo.width,
+              height: oceanTo.height,
+              color: compact ? "#fff" : "#111115",
+              fontSize: getComputedStyle(arrivingOcean).fontSize,
+              duration: travelDuration,
+              ease: "power2.inOut",
+            }, 0);
+          }
         };
 
         ScrollTrigger.create({
           trigger: document.documentElement,
-          start: 180,
+          start: 1,
           onEnter: () => setCompact(true),
           onLeaveBack: () => setCompact(false),
         });
@@ -119,17 +245,57 @@ export function PageMotion({ children }: { children: ReactNode }) {
         );
 
       const serviceItems = gsap.utils.toArray<HTMLElement>(".service");
-      gsap.from(serviceItems, {
-        autoAlpha: 0,
-        y: 22,
-        duration: 0.65,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".service-strip",
-          start: "top 84%",
-          toggleActions: "play none none reverse",
-        },
+      serviceItems.forEach((service, index) => {
+        const panel = service.querySelector<HTMLElement>(".service-copy");
+        const number = service.querySelector<HTMLElement>(".service-number");
+        const copy = panel?.querySelectorAll<HTMLElement>("h2, p");
+        if (!panel || !number || !copy?.length) return;
+        gsap.set(copy, { autoAlpha: 0, y: 12 });
+
+        // Keep the row in place while its panel grows out of a thin strip.
+        // The stagger is tied to each row's position, so scrolling back reverses it.
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: service,
+            start: "top 88%",
+            end: "top 48%",
+            scrub: 0.35,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline
+          .fromTo(
+            panel,
+            {
+              clipPath: "inset(0 49% 0 49%)",
+              xPercent: index % 2 === 0 ? 38 : 0,
+            },
+            {
+              clipPath: "inset(0 0% 0 0%)",
+              xPercent: 0,
+              duration: 1.2,
+              ease: "power2.out",
+            },
+            0,
+          )
+          .fromTo(
+            number,
+            { x: index % 2 === 0 ? 20 : -20 },
+            { x: 0, duration: 1.1, ease: "power2.out" },
+            0,
+          )
+          .to(
+            copy,
+            {
+              autoAlpha: 1,
+              y: 0,
+              stagger: 0.08,
+              duration: 0.36,
+              ease: "power1.out",
+            },
+            0.6,
+          );
       });
 
       const processIntro = root.querySelector(".section-intro");
@@ -200,20 +366,6 @@ export function PageMotion({ children }: { children: ReactNode }) {
           },
         });
       }
-
-      gsap.utils.toArray<SVGElement>(".doodle").forEach((doodle, index) => {
-        gsap.to(doodle, {
-          y: index % 2 === 0 ? -22 : 22,
-          rotation: index % 2 === 0 ? -3 : 3,
-          ease: "none",
-          scrollTrigger: {
-            trigger: doodle.parentElement ?? doodle,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      });
 
       ScrollTrigger.refresh();
     }, root);

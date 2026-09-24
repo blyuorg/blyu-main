@@ -3,6 +3,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
+import FlipCard from "@/components/flip-card";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +38,13 @@ const projects = [
   ],
 ] as const;
 
+const cardSurfaces = {
+  "card-blue": { background: "#1215dc", color: "#ffffff" },
+  "card-black": { background: "#202027", color: "#ffffff" },
+  "card-sand": { background: "#b3aa9f", color: "#151519" },
+  "card-white": { background: "#fdfdfc", color: "#111115" },
+} as const;
+
 export function WorkRail() {
   const rail = useRef<HTMLDivElement>(null);
   const autoplay = useRef<gsap.core.Tween | null>(null);
@@ -59,7 +67,6 @@ export function WorkRail() {
         ease: "none",
         repeat: -1,
         yoyo: true,
-        repeatDelay: 0.8,
         paused: true,
       });
 
@@ -93,6 +100,7 @@ export function WorkRail() {
     const element = rail.current;
     if (!element) return;
     autoplay.current?.pause();
+    if ((event.target as HTMLElement).closest(".flip-card")) return;
     drag.current = { active: true, x: event.clientX, left: element.scrollLeft };
     element.setPointerCapture(event.pointerId);
   };
@@ -112,33 +120,63 @@ export function WorkRail() {
     <div
       ref={rail}
       className="work-rail"
-      onPointerDown={down}
+      onPointerDownCapture={down}
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
-      onPointerEnter={() => autoplay.current?.pause()}
-      onPointerLeave={() => autoplay.current?.resume()}
       aria-label="Selected work. Cards scroll automatically; drag to browse."
       tabIndex={0}
     >
-      {projects.map(([title, description, role, company, tone], index) => (
-        <article key={title} className={`work-card ${tone}`}>
-          <div className="work-card-preview" aria-hidden="true" />
-          <div className="work-card-copy">
-            <div>
-              <span>0{index + 1} / CASE STUDY</span>
-              <h3>{title}</h3>
-            </div>
-            <div>
-              <p>{description}</p>
-              <footer>
-                <b>{role}</b>
-                <small>{company}</small>
-              </footer>
-            </div>
-          </div>
-        </article>
-      ))}
+      {projects.map(([title, description, role, company, tone], index) => {
+        const surface = cardSurfaces[tone];
+
+        return (
+          <FlipCard
+            key={title}
+            className={`work-card ${tone}`}
+            width={365}
+            height={460}
+            radius={24}
+            background={surface.background}
+            color={surface.color}
+            axis="y"
+            flipOnClick
+            draggable
+            tilt
+            glare
+            glareOpacity={0.12}
+            hoverScale={1.02}
+            perspective={1100}
+            stiffness={180}
+            damping={22}
+            ariaLabel={`${title} case study. Flip for details.`}
+            front={
+              <div className="work-card-face work-card-front">
+                <div className="work-card-preview" aria-hidden="true" />
+                <div className="work-card-copy">
+                  <span>0{index + 1} / CASE STUDY</span>
+                  <h3>{title}</h3>
+                </div>
+              </div>
+            }
+            back={
+              <div className="work-card-face work-card-back">
+                <div>
+                  <span>0{index + 1} / CASE STUDY</span>
+                  <h3>{title}</h3>
+                </div>
+                <div>
+                  <p>{description}</p>
+                  <footer>
+                    <b>{role}</b>
+                    <small>{company}</small>
+                  </footer>
+                </div>
+              </div>
+            }
+          />
+        );
+      })}
     </div>
   );
 }
