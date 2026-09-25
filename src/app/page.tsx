@@ -21,12 +21,12 @@ export default function Home() {
             <Link href="/work">Our Work</Link>
             <a href="/services">Services</a>
             <a href="/process">Process</a>
-            <a href="#process">Ocean</a>
+            <Link href="/ocean">Ocean</Link>
           </div>
           <div className="nav-actions" aria-label="Quick links">
-            <a className="nav-ocean nav-ocean-compact" href="#process">
+            <Link className="nav-ocean nav-ocean-compact" href="/ocean">
               Ocean
-            </a>
+            </Link>
             <a className="button button-small" href="/start-project">
               Start a project <span>↗</span>
             </a>
@@ -149,7 +149,7 @@ export default function Home() {
             <div>
               <span>Explore</span>
               <a href="/process">Process</a>
-              <a href="#process">Ocean</a>
+              <Link href="/ocean">Ocean</Link>
             </div>
             <div>
               <span>Connect</span>

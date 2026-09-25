@@ -1,0 +1,298 @@
+.ocean-page {
+  min-height: 100svh;
+  background: var(--paper);
+}
+
+.ocean-stage {
+  width: min(100%, 1281px);
+  min-height: 900px;
+  margin-inline: auto;
+}
+
+.ocean-header {
+  height: 148px;
+  margin-inline: 58px;
+  border-bottom: 1px solid #d1d4d6;
+}
+
+.ocean-logo,
+.ocean-entrance-logo {
+  display: block;
+  width: 132px;
+  height: 124px;
+  background: url("/blyu-logo.svg") center / auto 100% no-repeat;
+}
+
+.ocean-logo {
+  position: relative;
+  top: 18px;
+}
+
+.ocean-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 695px) 382px;
+  gap: 69px;
+  align-items: start;
+  padding: 60px 63px 85px 72px;
+}
+
+.ocean-eyebrow {
+  margin: 0;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ocean-hero h1 {
+  max-width: 690px;
+  margin: 22px 0;
+  color: var(--ink);
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.ocean-hero h1 span {
+  display: block;
+}
+
+.ocean-description {
+  max-width: 630px;
+  margin: 0;
+  color: #66666e;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.ocean-supporting-line {
+  margin: 22px 0 0;
+  color: #66666e;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.ocean-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 49px;
+}
+
+.ocean-primary-cta {
+  display: inline-flex;
+  width: 294px;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 0 19px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.ocean-primary-cta:hover {
+  background: #090bb8;
+  transform: translateY(-3px);
+}
+
+.ocean-primary-cta img {
+  flex: none;
+}
+
+.ocean-secondary-cta {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ocean-secondary-cta:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ocean-workflow {
+  display: flex;
+  width: 382px;
+  height: 580px;
+  flex-direction: column;
+  gap: 41px;
+  padding: 58px 32px 26px;
+  border-radius: 24px;
+  background: #ebecff;
+  scroll-margin-top: 24px;
+}
+
+.ocean-workflow-card {
+  width: 100%;
+  min-height: 112px;
+  border-radius: 14px;
+  padding: 15px 16px;
+  background: #fff;
+}
+
+.ocean-workflow-card span {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ocean-workflow-card p {
+  margin: 17px 0 0;
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.ocean-workflow small {
+  margin-top: auto;
+  color: #595970;
+  font-size: 11px;
+}
+
+.ocean-entrance {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ocean-entrance-canvas {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+}
+
+.ocean-entrance-logo {
+  position: absolute;
+  top: 18px;
+  left: max(58px, calc((100vw - 1281px) / 2 + 58px));
+}
+
+.ocean-entrance-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100svh + 280px);
+  background: url("/ocean-wave.svg") center top / 100% 100% no-repeat;
+}
+
+.ocean-entrance-bubble {
+  position: absolute;
+  display: block;
+}
+
+.ocean-entrance-bubble img {
+  display: block;
+}
+
+.ocean-entrance-title-position {
+  position: absolute;
+  top: 40.5%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.ocean-entrance-title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--ocean-title-font, Arial, Helvetica, sans-serif);
+  font-size: clamp(72px, 9.2vw, 118px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+@media (max-width: 1120px) {
+  .ocean-stage {
+    min-height: 0;
+  }
+
+  .ocean-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(290px, 34%);
+    gap: 36px;
+    padding-inline: 5vw;
+  }
+
+  .ocean-hero h1 {
+    font-size: clamp(52px, 6.2vw, 72px);
+  }
+
+  .ocean-workflow {
+    width: 100%;
+  }
+
+  .ocean-actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 760px) {
+  .ocean-header {
+    height: 112px;
+    margin-inline: 24px;
+  }
+
+  .ocean-logo,
+  .ocean-entrance-logo {
+    width: 100px;
+    height: 94px;
+  }
+
+  .ocean-logo,
+  .ocean-entrance-logo {
+    top: 8px;
+  }
+
+  .ocean-entrance-logo {
+    left: 24px;
+  }
+
+  .ocean-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 64px 24px 80px;
+  }
+
+  .ocean-hero h1 {
+    font-size: clamp(46px, 11.4vw, 72px);
+  }
+
+  .ocean-description {
+    font-size: 17px;
+  }
+
+  .ocean-actions {
+    gap: 22px;
+    margin-top: 38px;
+  }
+
+  .ocean-workflow {
+    max-width: 430px;
+    height: auto;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .ocean-workflow small {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ocean-hero h1 {
+    font-size: 43px;
+  }
+
+  .ocean-primary-cta {
+    width: 100%;
+  }
+}
