@@ -6,6 +6,10 @@ import { projectCatalog, type Project } from "@/lib/project-catalog";
 
 import "./project-gallery.css";
 
+const galleryProjects = projectCatalog.filter(
+  (project) => project.slug !== "knowledge-assistant",
+);
+
 function ProjectTile({
   project,
   index,
@@ -205,7 +209,7 @@ export function ProjectGallery() {
               key={duplicate ? "repeat" : "original"}
               aria-hidden={duplicate || undefined}
             >
-              {projectCatalog.map((project, index) => (
+              {galleryProjects.map((project, index) => (
                 <ProjectTile
                   key={project.slug}
                   project={project}

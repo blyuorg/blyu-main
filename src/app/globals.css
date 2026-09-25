@@ -127,6 +127,19 @@ textarea {
   pointer-events: none;
   visibility: hidden;
 }
+.site-nav.nav-compact .nav-links a:last-child {
+  pointer-events: auto;
+  visibility: visible;
+}
+.site-nav .nav-links a[aria-current="page"] {
+  color: var(--blue);
+}
+.site-nav.nav-compact .nav-actions {
+  width: clamp(200px, 20vw, 260px);
+}
+.site-nav.nav-compact .button-small {
+  flex: 1 1 100%;
+}
 .nav-ocean-traveler {
   position: absolute;
   z-index: 3;
@@ -700,6 +713,40 @@ footer {
   background: var(--blue);
   padding: 56px 0 20px;
 }
+.home-page {
+  isolation: isolate;
+}
+.site-content {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  border-radius: 0 0 28px 28px;
+  box-shadow: 0 22px 50px rgb(17 17 21 / 15%);
+}
+.site-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+}
+.site-footer > .shell {
+  position: relative;
+  z-index: 1;
+}
+.footer-map {
+  position: absolute;
+  inset: 39% 0 0;
+  z-index: 0;
+  background: url("/world-land-outline.svg") center top / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 78%, transparent);
+  opacity: 0.21;
+  pointer-events: none;
+}
 .footer-cta {
   display: flex;
   align-items: end;
@@ -741,7 +788,7 @@ footer {
 }
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.4);
-  margin-top: 75px;
+  margin-top: auto;
   padding-top: 18px;
   display: flex;
   justify-content: space-between;
@@ -764,6 +811,11 @@ footer {
   }
 }
 @media (max-width: 700px) {
+  .footer-map {
+    inset: 43% 0 0;
+    background-size: 100% auto;
+    opacity: 0.16;
+  }
   .shell {
     width: calc(100% - 40px);
   }
@@ -802,6 +854,9 @@ footer {
   .nav-compact .nav-links a:last-child {
     display: none;
   }
+  .site-nav.nav-compact .nav-links a:last-child {
+    display: inline;
+  }
   .nav-actions {
     grid-column: 2;
     grid-row: 1;
@@ -829,6 +884,10 @@ footer {
   .nav-compact .nav-actions {
     width: 100%;
     height: 52px;
+  }
+  .site-nav.nav-compact .nav-actions {
+    width: auto;
+    min-width: min(48vw, 190px);
   }
   .nav-compact .nav-ocean {
     display: inline-flex;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projectCatalog } from "@/lib/project-catalog";
+import { SiteNav } from "@/components/site-nav";
 
 import "./project-page.css";
 
@@ -28,11 +29,8 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <main className="project-page">
-      <header className="shell project-page-nav">
-        <Link className="project-page-logo" href="/" aria-label="Blyu home" />
-        <Link className="project-page-back" href="/#project-library">← All projects</Link>
-        <Link className="project-page-cta" href="/start-project">Start a project ↗</Link>
-      </header>
+      <SiteNav current="work" />
+      <div className="shell project-page-return"><Link href="/work">← All projects</Link></div>
 
       <section className="shell project-page-hero" aria-labelledby="project-title">
         <p className="project-page-eyebrow">{number} / CONCEPT PROJECT — {project.category}</p>
@@ -78,7 +76,7 @@ export default async function ProjectPage({ params }: Props) {
             <span>UP NEXT / {String(((index + 1) % projectCatalog.length) + 1).padStart(2, "0")}</span>
             <Link href={`/work/${next.slug}`}>{next.title} ↗</Link>
           </div>
-          <Link href="/#project-library">Back to all projects ↑</Link>
+          <Link href="/work">Back to all projects ↑</Link>
         </div>
       </footer>
     </main>

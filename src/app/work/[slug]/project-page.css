@@ -2,6 +2,14 @@
   min-height: 100svh;
   background: var(--paper);
 }
+.project-page-return {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.project-page-return a:hover {
+  color: var(--blue);
+}
 
 .project-page-nav {
   display: flex;

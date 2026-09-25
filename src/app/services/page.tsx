@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteNav } from "@/components/site-nav";
 import "./services-page.css";
 
 export const metadata: Metadata = {
@@ -50,17 +51,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <main className="services-page">
-      <header className="services-page-header shell">
-        <Link className="brand brand-logo" href="/" aria-label="Blyu home" />
-        <nav aria-label="Services page navigation">
-          <Link href="/#work">Our Work</Link>
-          <Link href="/services" aria-current="page">Services</Link>
-          <Link href="/process">Process</Link>
-        </nav>
-        <Link className="button button-small" href="/start-project">
-          Start a project <span aria-hidden="true">↗</span>
-        </Link>
-      </header>
+      <SiteNav current="services" />
 
       <section className="services-hero shell" aria-labelledby="services-title">
         <p className="services-eyebrow"><span aria-hidden="true" /> SERVICES</p>

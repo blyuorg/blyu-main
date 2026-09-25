@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { PageMotion } from "@/components/page-motion";
 import { ProjectGallery } from "@/components/project-gallery";
@@ -12,11 +13,12 @@ const services = [
 export default function Home() {
   return (
     <PageMotion>
-      <main>
+      <main className="home-page">
+        <div className="site-content">
         <nav className="nav shell" aria-label="Main navigation" data-fade>
           <a className="brand brand-logo" href="#top" aria-label="Blyu home" />
           <div className="nav-links">
-            <a href="#work">Our Work</a>
+            <Link href="/work">Our Work</Link>
             <a href="/services">Services</a>
             <a href="/process">Process</a>
             <a href="#process">Ocean</a>
@@ -122,7 +124,9 @@ export default function Home() {
           </div>
           <ContactForm />
         </section>
-        <footer data-fade>
+        </div>
+        <footer className="site-footer" data-fade>
+          <div className="footer-map" aria-hidden="true" />
           <div className="shell footer-cta">
             <p>Making complex things beautiful.</p>
             <a className="button" href="/start-project">
@@ -139,7 +143,7 @@ export default function Home() {
             </div>
             <div>
               <span>Explore</span>
-              <a href="#work">Work</a>
+              <Link href="/work">Work</Link>
               <a href="/services">Services</a>
             </div>
             <div>
