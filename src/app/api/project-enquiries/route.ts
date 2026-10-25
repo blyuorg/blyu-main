@@ -8,7 +8,15 @@ export async function POST(request: Request) {
     const contactEmail =
       typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
     const brief = typeof body.brief === "string" ? body.brief.trim() : "";
-    if (!name || !email.test(contactEmail) || !brief)
+    if (
+      !name ||
+      name.length > 120 ||
+      contactEmail.length < 3 ||
+      contactEmail.length > 320 ||
+      !email.test(contactEmail) ||
+      !brief ||
+      brief.length > 5000
+    )
       return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
     const supabase = getSupabaseServerClient();
     if (!supabase)

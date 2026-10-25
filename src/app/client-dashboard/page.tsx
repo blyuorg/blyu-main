@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import { createServerClient } from "@supabase/ssr";
 import "./dashboard.css";
 
-export const metadata: Metadata = { title: "Your projects | Blyu" };
+export const metadata: Metadata = {
+  title: "Your projects | Blyu",
+  robots: { index: false, follow: false },
+};
 
 export default async function ClientDashboardPage() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

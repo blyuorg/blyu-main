@@ -7,27 +7,35 @@ export function ContactForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
-    const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/project-enquiries", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(form)),
-    });
-    if (response.ok) {
-      event.currentTarget.reset();
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    try {
+      const response = await fetch("/api/project-enquiries", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(form)),
+      });
+      if (!response.ok) {
+        setStatus("error");
+        return;
+      }
+      formElement.reset();
       setStatus("success");
-    } else setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   }
   return (
     <form className="contact-form" onSubmit={submit}>
       <label htmlFor="name">Your name</label>
-      <input id="name" name="name" required placeholder="Jane Smith" />
+      <input id="name" name="name" required maxLength={120} placeholder="Jane Smith" />
       <label htmlFor="email">Work email</label>
       <input
         id="email"
         name="email"
         type="email"
         required
+        maxLength={320}
         placeholder="jane@company.com"
       />
       <label htmlFor="brief">What are you building?</label>
@@ -35,6 +43,7 @@ export function ContactForm() {
         id="brief"
         name="brief"
         required
+        maxLength={5000}
         placeholder="Tell us a little about the challenge…"
       />
       <button className="button" disabled={status === "sending"} type="submit">

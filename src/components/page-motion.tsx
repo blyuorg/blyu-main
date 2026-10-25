@@ -224,11 +224,6 @@ export function PageMotion({ children }: { children: ReactNode }) {
       heroTimeline
         .from(".nav", { autoAlpha: 0, y: -12, duration: 0.55 })
         .from(
-          ".hero .eyebrow",
-          { autoAlpha: 0, y: 16, duration: 0.45 },
-          "-=0.22",
-        )
-        .from(
           ".hero h1",
           {
             autoAlpha: 0,
@@ -236,7 +231,7 @@ export function PageMotion({ children }: { children: ReactNode }) {
             clipPath: "inset(0 0 100% 0)",
             duration: 0.9,
           },
-          "-=0.12",
+          0.66,
         )
         .from(
           ".hero-bottom > *",

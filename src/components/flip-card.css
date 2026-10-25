@@ -74,6 +74,10 @@
   -webkit-user-drag: none;
 }
 
+.flip-card__content {
+  height: 100%;
+}
+
 .flip-card__face--back {
   transform: rotateY(180deg);
 }

@@ -51,6 +51,8 @@ export default function FlipCard({
   shadowOpacity = 0.45,
   disabled = false,
   ariaLabel = "Flip card",
+  interactiveContent = false,
+  fadeContentAtEdge = false,
   className = "",
 }) {
   const reduce = useReducedMotion();
@@ -81,6 +83,9 @@ export default function FlipCard({
   const turnX = useMotionTemplate`perspective(${perspective}px) scale(${lift}) rotateY(${tiltY}deg) rotateX(${sumX}deg)`;
   const facing = useTransform(turn, (rotation) =>
     Math.abs(Math.cos((rotation * Math.PI) / 180)),
+  );
+  const contentOpacity = useTransform(facing, (value) =>
+    clamp((value - 0.88) / 0.1, 0, 1),
   );
   const spread = useTransform(facing, (value) => 0.08 + 0.92 * value);
   const shade = useTransform(facing, (value) => 0.1 + 0.9 * value * value);
@@ -142,6 +147,7 @@ export default function FlipCard({
 
   const onPointerDown = (event) => {
     if (disabled || event.button !== 0 || grip.current) return;
+    if (interactiveContent && event.target.closest("a, button, input, select, textarea")) return;
     event.stopPropagation();
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -236,12 +242,14 @@ export default function FlipCard({
   };
 
   const onKeyDown = (event) => {
+    if (event.target !== event.currentTarget) return;
     if (disabled || (event.key !== "Enter" && event.key !== " ")) return;
     event.preventDefault();
     if (!event.repeat) flip(true);
   };
 
   const onClick = (event) => {
+    if (event.target !== event.currentTarget) return;
     if (!disabled && event.detail === 0) flip(true);
   };
 
@@ -255,9 +263,9 @@ export default function FlipCard({
   return (
     <div
       ref={rootRef}
-      role="button"
+      role={interactiveContent ? "group" : "button"}
       tabIndex={disabled ? -1 : 0}
-      aria-pressed={shown}
+      aria-pressed={interactiveContent ? undefined : shown}
       aria-label={ariaLabel}
       aria-disabled={disabled || undefined}
       className={`flip-card${className ? ` ${className}` : ""}`}
@@ -312,7 +320,13 @@ export default function FlipCard({
           aria-hidden={shown}
           inert={shown}
         >
-          {front}
+          {fadeContentAtEdge && !reduce ? (
+            <motion.div className="flip-card__content" style={{ opacity: contentOpacity }}>
+              {front}
+            </motion.div>
+          ) : (
+            front
+          )}
           {glare ? <span className="flip-card__glare" aria-hidden="true" /> : null}
         </div>
         <div
@@ -320,7 +334,13 @@ export default function FlipCard({
           aria-hidden={!shown}
           inert={!shown}
         >
-          {back}
+          {fadeContentAtEdge && !reduce ? (
+            <motion.div className="flip-card__content" style={{ opacity: contentOpacity }}>
+              {back}
+            </motion.div>
+          ) : (
+            back
+          )}
           {glare ? <span className="flip-card__glare" aria-hidden="true" /> : null}
         </div>
       </motion.div>

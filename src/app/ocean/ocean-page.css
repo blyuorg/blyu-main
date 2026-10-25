@@ -161,6 +161,14 @@
   z-index: 100;
   inset: 0;
   overflow: hidden;
+  animation: ocean-entrance-fallback 4.1s step-end forwards;
+}
+
+@keyframes ocean-entrance-fallback {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 .ocean-entrance-canvas {
@@ -210,6 +218,382 @@
   line-height: 1;
 }
 
+.ocean-section {
+  width: min(100%, 1281px);
+  margin-inline: auto;
+  padding: 116px 72px;
+  scroll-margin-top: 30px;
+}
+
+.ocean-section-intro {
+  max-width: 820px;
+  margin-bottom: 52px;
+}
+
+.ocean-section-intro h2,
+.ocean-story h2,
+.ocean-blyu h2,
+.ocean-measure h2,
+.ocean-close h2 {
+  margin: 20px 0 0;
+  font-size: clamp(48px, 5.7vw, 76px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.ocean-section-intro > p:last-child,
+.ocean-section-intro-split > p,
+.ocean-story-heading > p:last-child,
+.ocean-blyu > div > p:last-child,
+.ocean-measure-content p,
+.ocean-close-inner > p:nth-of-type(2) {
+  max-width: 660px;
+  margin: 25px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.ocean-section-intro-split {
+  display: grid;
+  max-width: none;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.8fr);
+  align-items: end;
+  gap: 64px;
+}
+
+.ocean-section-intro-split > p {
+  margin-bottom: 4px;
+}
+
+.ocean-service-face > span,
+.ocean-story-grid span,
+.ocean-blyu-map span {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.ocean-service-face p,
+.ocean-story-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ocean-process-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ocean-process-list li {
+  display: grid;
+  grid-template-columns: 0.3fr 0.75fr 1fr;
+  align-items: center;
+  gap: 32px;
+  min-height: 154px;
+  border-top: 1px solid var(--line);
+}
+
+.ocean-process-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.ocean-process-number {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ocean-process-list h3 {
+  margin: 0;
+  font-size: var(--ocean-process-title-size, 42px);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.ocean-process-list p {
+  max-width: 490px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.ocean-services {
+  background: #ebecff;
+  border-radius: 30px;
+}
+
+.ocean-service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ocean-service-tile {
+  position: relative;
+  min-width: 0;
+  height: 350px;
+}
+
+.ocean-service-flip {
+  display: block;
+  width: 100%;
+}
+
+.ocean-service-flip .flip-card__face {
+  border: 1px solid #d7d9f5;
+}
+
+.ocean-service-face {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 26px;
+}
+
+.ocean-service-face-front h3,
+.ocean-service-face-back h3 {
+  margin: 0 0 16px;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+.ocean-service-face h3 a {
+  transition: color 220ms ease;
+}
+
+.ocean-service-face h3 a:hover,
+.ocean-service-face h3 a:focus-visible {
+  color: var(--blue);
+}
+
+.ocean-service-face h3 a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.ocean-service-face-back small {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ocean-story {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 80px;
+}
+
+.ocean-story-heading > p:last-child {
+  max-width: 460px;
+}
+
+.ocean-story-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.ocean-story-grid article {
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.ocean-story-grid p {
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.ocean-process-list h3,
+.ocean-process-list p,
+.ocean-story-heading h2,
+.ocean-story-heading > p:last-child,
+.ocean-story-grid span,
+.ocean-story-grid p {
+  transform-origin: left center;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    font-size 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ocean-process-list li:hover h3 {
+    font-size: calc(var(--ocean-process-title-size, 42px) + 2px);
+    transform: scale(1.025);
+  }
+
+  .ocean-process-list li:hover p,
+  .ocean-story-heading h2:hover,
+  .ocean-story-heading > p:last-child:hover,
+  .ocean-story-grid article:hover span,
+  .ocean-story-grid article:hover p {
+    transform: scale(1.035);
+  }
+
+  .ocean-story-grid article:hover p {
+    font-size: 17px;
+  }
+}
+
+.ocean-blyu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  border-radius: 30px;
+  background: #e9ebff;
+}
+
+.ocean-blyu-map {
+  display: grid;
+  gap: 14px;
+}
+
+.ocean-blyu-map > div {
+  display: flex;
+  min-height: 130px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 23px 26px;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.ocean-blyu-map strong {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.ocean-blyu-map > p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ocean-measure h2 {
+  max-width: 750px;
+}
+
+.ocean-measure-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  margin-top: 42px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.ocean-measure-content p {
+  margin: 0;
+}
+
+.ocean-faq-list {
+  border-top: 1px solid var(--line);
+}
+
+.ocean-faq-list details {
+  border-bottom: 1px solid var(--line);
+}
+
+.ocean-faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 93px;
+  cursor: pointer;
+  font-size: 25px;
+  letter-spacing: -0.035em;
+  list-style: none;
+}
+
+.ocean-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.ocean-faq-list summary span {
+  color: var(--blue);
+  font-size: 32px;
+  font-weight: 300;
+  transition: transform 0.2s ease;
+}
+
+.ocean-faq-list details[open] summary span {
+  transform: rotate(45deg);
+}
+
+.ocean-faq-list details > p {
+  max-width: 800px;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.ocean-close {
+  background: var(--blue);
+  color: #fff;
+}
+
+.ocean-close-inner {
+  width: min(100%, 1281px);
+  margin-inline: auto;
+  padding: 108px 72px 30px;
+}
+
+.ocean-close .ocean-eyebrow,
+.ocean-close-inner > p:nth-of-type(2) {
+  color: #fff;
+}
+
+.ocean-close h2 {
+  max-width: 850px;
+}
+
+.ocean-close-inner > p:nth-of-type(2) {
+  max-width: 600px;
+}
+
+.ocean-close-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 62px;
+  margin-top: 42px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.25s ease;
+}
+
+.ocean-close-link:hover {
+  transform: translateY(-3px);
+}
+
+.ocean-close-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 130px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 36%);
+  font-size: 13px;
+}
+
 @media (max-width: 1120px) {
   .ocean-stage {
     min-height: 0;
@@ -231,6 +615,14 @@
 
   .ocean-actions {
     flex-wrap: wrap;
+  }
+
+  .ocean-section {
+    padding-inline: 5vw;
+  }
+
+  .ocean-service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -285,6 +677,80 @@
   .ocean-workflow small {
     margin-top: 14px;
   }
+
+  .ocean-section {
+    padding: 80px 24px;
+    border-radius: 0;
+  }
+
+  .ocean-section-intro,
+  .ocean-section-intro-split {
+    display: block;
+    margin-bottom: 36px;
+  }
+
+  .ocean-section-intro h2,
+  .ocean-story h2,
+  .ocean-blyu h2,
+  .ocean-measure h2,
+  .ocean-close h2 {
+    font-size: clamp(42px, 10vw, 64px);
+  }
+
+  .ocean-section-intro > p:last-child,
+  .ocean-section-intro-split > p,
+  .ocean-story-heading > p:last-child,
+  .ocean-blyu > div > p:last-child,
+  .ocean-measure-content p,
+  .ocean-close-inner > p:nth-of-type(2) {
+    font-size: 16px;
+  }
+
+  .ocean-service-grid,
+  .ocean-story,
+  .ocean-blyu,
+  .ocean-measure-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ocean-service-grid,
+  .ocean-story,
+  .ocean-blyu,
+  .ocean-measure-content {
+    gap: 14px;
+  }
+
+  .ocean-process-list li {
+    grid-template-columns: 42px 1fr;
+    gap: 8px 18px;
+    padding: 28px 0;
+  }
+
+  .ocean-process-list h3 {
+    --ocean-process-title-size: 34px;
+  }
+
+  .ocean-process-list p {
+    grid-column: 2;
+    font-size: 15px;
+  }
+
+  .ocean-measure-content {
+    gap: 20px;
+  }
+
+  .ocean-faq-list summary {
+    font-size: 20px;
+  }
+
+  .ocean-close-inner {
+    padding: 80px 24px 28px;
+  }
+
+  .ocean-close-bottom {
+    flex-direction: column;
+    margin-top: 100px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -294,5 +760,28 @@
 
   .ocean-primary-cta {
     width: 100%;
+  }
+
+  .ocean-close-link {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ocean-entrance {
+    display: none;
+  }
+
+  .ocean-primary-cta,
+  .ocean-close-link,
+  .ocean-faq-list summary span,
+  .ocean-process-list h3,
+  .ocean-process-list p,
+  .ocean-story-heading h2,
+  .ocean-story-heading > p:last-child,
+  .ocean-story-grid span,
+  .ocean-story-grid p {
+    transition: none;
   }
 }

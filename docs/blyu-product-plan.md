@@ -45,12 +45,12 @@ The marketing site can launch mostly static. Supabase is reserved for the live i
 
 - `project_enquiries`: name, email, brief, created_at
 
-The browser has no direct table privileges. The Next.js server route validates input and writes using a server-only service-role key; Row Level Security remains enabled. Add rate limiting and CAPTCHA before opening the public form to meaningful traffic, and never expose the service-role key to the browser.
+The browser has no direct table privileges. The Next.js server route validates input and writes using a server-only Supabase Secret key; Row Level Security remains enabled. Add rate limiting and CAPTCHA before opening the public form to meaningful traffic, and never expose the Secret key to the browser.
 
 ## Vercel delivery
 
 - Next.js App Router and TypeScript
-- Vercel environment variables for `NEXT_PUBLIC_SUPABASE_URL` and server-only `SUPABASE_SERVICE_ROLE_KEY`
+- Vercel environment variables for `NEXT_PUBLIC_SUPABASE_URL` and server-only `SUPABASE_SECRET_KEY`
 - Preview deployments for each change; production deployment after mobile, performance, and accessibility review
 - Static media optimization, metadata/OG image, sitemap, robots, and Web Vitals monitoring
 
@@ -70,4 +70,4 @@ The browser has no direct table privileges. The Next.js server route validates i
 - Final one-sentence Blyu value proposition and target buyer
 - Actual proof metrics, customer logos, testimonials, and the final showreel video
 - Any anti-spam provider/rate-limit policy for the project enquiry form
-- Supabase project URL and server-only service-role key; Vercel project/domain access for launch
+- Supabase project URL and server-only Secret key; Vercel project/domain access for launch

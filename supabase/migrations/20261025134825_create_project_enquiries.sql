@@ -10,3 +10,4 @@ alter table public.project_enquiries enable row level security;
 
 -- No client roles receive table privileges. The server route is the only writer.
 revoke all on public.project_enquiries from anon, authenticated;
+grant insert on public.project_enquiries to service_role;

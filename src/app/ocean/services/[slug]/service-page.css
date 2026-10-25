@@ -1,0 +1,258 @@
+.ocean-service-detail {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.ocean-service-detail-header,
+.ocean-service-detail-hero,
+.ocean-service-detail-body,
+.ocean-service-detail-neighbors {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.ocean-service-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 126px;
+}
+
+.ocean-service-detail-logo {
+  width: 68px;
+  height: 75px;
+  background: url("/blyu-logo.svg") center / auto 100% no-repeat;
+}
+
+.ocean-service-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ocean-service-detail-back:hover,
+.ocean-service-detail-back:focus-visible {
+  color: var(--blue);
+}
+
+.ocean-service-detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  align-items: center;
+  gap: 48px;
+  min-height: 570px;
+  padding: 90px 0 110px;
+  border-top: 1px solid var(--line);
+}
+
+.ocean-service-detail-kicker {
+  margin: 0;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.ocean-service-detail h1 {
+  max-width: 800px;
+  margin: 30px 0 28px;
+  font-size: clamp(60px, 7.3vw, 112px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+}
+
+.ocean-service-detail-intro > p:last-child {
+  max-width: 640px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.ocean-service-detail-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 350px);
+  aspect-ratio: 1;
+  justify-self: end;
+  border: 1px solid #c8caff;
+  border-radius: 50%;
+  color: var(--blue);
+}
+
+.ocean-service-detail-mark span {
+  font-size: 90px;
+  font-weight: 400;
+  letter-spacing: -0.08em;
+}
+
+.ocean-service-detail-mark i {
+  position: absolute;
+  inset: 13%;
+  border: 1px solid #d8d9ff;
+  border-radius: 50%;
+}
+
+.ocean-service-detail-mark i:last-child {
+  inset: 29%;
+}
+
+.ocean-service-detail-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding-block: 90px 130px;
+  border-top: 1px solid var(--line);
+}
+
+.ocean-service-detail-body h2,
+.ocean-service-detail-cta h2 {
+  max-width: 650px;
+  margin: 20px 0 30px;
+  font-size: clamp(44px, 4.4vw, 68px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+
+.ocean-service-detail-body > div > p:last-child,
+.ocean-service-detail-includes > p:last-child {
+  max-width: 580px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.ocean-service-detail-includes ul {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ocean-service-detail-includes li {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 25px 0;
+  border-top: 1px solid var(--line);
+}
+
+.ocean-service-detail-includes li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.ocean-service-detail-includes li span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ocean-service-detail-includes li strong {
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.ocean-service-detail-cta {
+  padding: 100px max(48px, calc((100vw - 1280px) / 2)) 110px;
+  background: var(--blue);
+  color: #fff;
+}
+
+.ocean-service-detail-cta .ocean-service-detail-kicker {
+  color: #fff;
+}
+
+.ocean-service-detail-cta h2 {
+  max-width: 800px;
+}
+
+.ocean-service-detail-cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ocean-service-detail-neighbors {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: 48px 70px;
+}
+
+.ocean-service-detail-neighbors a {
+  display: grid;
+  gap: 10px;
+  max-width: 45%;
+  font-size: 20px;
+  letter-spacing: -0.035em;
+}
+
+.ocean-service-detail-neighbors a:last-child {
+  text-align: right;
+}
+
+.ocean-service-detail-neighbors span {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 760px) {
+  .ocean-service-detail-header,
+  .ocean-service-detail-hero,
+  .ocean-service-detail-body,
+  .ocean-service-detail-neighbors {
+    width: calc(100% - 48px);
+  }
+
+  .ocean-service-detail-header {
+    min-height: 104px;
+  }
+
+  .ocean-service-detail-logo {
+    width: 54px;
+    height: 60px;
+  }
+
+  .ocean-service-detail-hero,
+  .ocean-service-detail-body {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .ocean-service-detail-hero {
+    padding-block: 70px 90px;
+  }
+
+  .ocean-service-detail h1 {
+    font-size: clamp(54px, 12vw, 84px);
+  }
+
+  .ocean-service-detail-mark {
+    width: 220px;
+    justify-self: start;
+  }
+
+  .ocean-service-detail-body {
+    padding-block: 70px 90px;
+  }
+
+  .ocean-service-detail-cta {
+    padding: 80px 24px;
+  }
+}

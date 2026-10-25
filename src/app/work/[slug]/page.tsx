@@ -15,7 +15,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projectCatalog.find((item) => item.slug === slug);
-  return { title: project ? `${project.title} — Blyu` : "Project — Blyu" };
+  return {
+    title: project ? `${project.title} — Blyu` : "Project — Blyu",
+    robots: { index: false, follow: false },
+  };
 }
 
 export default async function ProjectPage({ params }: Props) {
